@@ -1,13 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  title: MyString
-  description: MyText
-  image_url: MyString
-  price: 9.99
-
-two:
-  title: MyString
-  description: MyText
-  image_url: MyString
-  price: 9.99
+cmh_ride:
+ title: Ride to CMH Airport
+ description:
+  I will pick you up and drive you to CMH from anywhere on campus, at any time.
+ price: 20.00
+ image_url: car.png
