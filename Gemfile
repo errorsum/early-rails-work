@@ -46,3 +46,4 @@ end
 
 gem 'bootstrap-sass'
 
+gem 'jquery-ui-rails'

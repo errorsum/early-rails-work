@@ -18,15 +18,10 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should create line_item" do
     assert_difference('LineItem.count') do
-      post :create, product_id: products(:cmh_ride).id
+       post :create, product_id: products(:cmh_ride).id
     end
 
-    assert_redirected_to cart_path(assigns(:line_item).cart)
-  end
-
-  test "should show line_item" do
-    get :show, id: @line_item
-    assert_response :success
+    assert_redirected_to store_path
   end
 
   test "should get edit" do
@@ -45,5 +40,16 @@ class LineItemsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to line_items_path
+  end
+
+  test "should create line_item via ajax" do
+    assert_difference('LineItem.count') do
+      xhr :post, :create, product_id: products(:cmh_ride).id
+    end
+
+    assert_response :success
+    assert_select_jquery :html, '#cart' do
+      assert_select 'tr#current_item td', /Ride to CMH/
+    end
   end
 end

@@ -31,7 +31,8 @@ include CurrentCart
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to store_url, notice: 'Item was successfully added.' }
+        format.html { redirect_to store_url }
+        format.js {@current_item = @line_item}
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
@@ -61,6 +62,24 @@ include CurrentCart
     respond_to do |format|
       format.html { redirect_to line_items_url }
       format.json { head :no_content }
+    end
+  end
+
+  def decrement
+    @cart = current_cart
+
+    @line_item = @cart.decrement_line_item_quantity(params[:id])
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_path, notice: 'Line item updated.'}
+        format.js {@current_item = @line_item}
+        format.json { head :ok}
+      else
+        format.html { render action :"edit" }
+        format.js {@current_item = @line_item}
+        format.json { render json: @line_item.errors, status: unprocessable_entity }
+      end
     end
   end
 

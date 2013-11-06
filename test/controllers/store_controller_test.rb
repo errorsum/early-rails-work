@@ -6,8 +6,14 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :success
     assert_select '#columns #side a', minimum: 4
     assert_select '#main .entry', 3
-    assert_select 'h3', 'Ride to CMH Airport'
+    assert_select 'h3', 'Ride to CMH'
     assert_select '.price', /\$[,\d]+\.\d\d/
+  end
+
+  test "please don't fuck with the markup" do
+  	get :index
+  	assert_select '.store .entry > img' 3
+  	assert_select '.entry input[type=submit]', 3
   end
 
 end
